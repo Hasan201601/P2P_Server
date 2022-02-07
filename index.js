@@ -2,11 +2,15 @@ const express = require('express');
 const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv")
+const cors = require('cors')
 const userRoutes = require("./routes/user")
+const loanRoutes = require("./routes/loan")
 dotenv.config()
 
+app.use(cors())
 app.use(express.json())
 app.use("/api/v1", userRoutes)
+app.use("/api/v1", loanRoutes)
 
 
 // mongodb connection 
