@@ -21,7 +21,7 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
     try {
-        const user = await User.findOne({ username: req.body.username })
+        const user = await User.findOne({ email: req.body.email })
 
         !user && res.status(401).json("Wrong Credentials")
 
@@ -42,7 +42,7 @@ router.post("/login", async (req, res) => {
             { expiresIn: "3d" }
         )
         const { password, ...others } = user._doc;
-        res.status(201).json({ others, accessToken })
+        res.status(201).json({ ...others, accessToken })
     } catch (error) {
         res.status(500).json(error)
     }
@@ -70,7 +70,6 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
         res.status(200).json("User has been deleted...");
     } catch (err) {
         res.status(500).json(err);
-
     }
 });
 module.exports = router
