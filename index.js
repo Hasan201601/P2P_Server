@@ -5,12 +5,14 @@ const dotenv = require("dotenv")
 const cors = require('cors')
 const userRoutes = require("./routes/user")
 const loanRoutes = require("./routes/loan")
+const stripeRoutes = require("./routes/payment")
 dotenv.config()
 
 app.use(cors())
 app.use(express.json())
 app.use("/api/v1", userRoutes)
 app.use("/api/v1", loanRoutes)
+app.use("/api/checkout", stripeRoutes)
 
 
 // mongodb connection 
